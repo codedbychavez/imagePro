@@ -20,6 +20,6 @@ export default {
 <style scoped>
 
 .the-header {
-  @apply bg-gray-100 p-4;
+  @apply bg-white p-4;
 }
 </style>

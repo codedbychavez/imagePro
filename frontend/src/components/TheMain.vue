@@ -20,7 +20,7 @@ export default {
 <style scoped>
 
 .the-main {
-
+  @apply p-4;
 }
 
 </style>
