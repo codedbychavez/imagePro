@@ -1,5 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
+import math
 
 from functions import calculate_blur_score, crop_image_to_bounding_box, equally_apply_padding_to_image, get_file_name, apply_padding_to_specific_side_of_image
 
