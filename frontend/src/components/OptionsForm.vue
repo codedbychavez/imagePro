@@ -144,8 +144,8 @@ export default {
     return {
       imageURLs: [],
       formData: {
-        resolution_min_width: 1000,
-        resolution_min_height: 1000,
+        resolution_width_min: 1000,
+        resolution_height_min: 1000,
         square_images: false,
         blur_check: true,
         blur_threshold: 100,
@@ -179,7 +179,7 @@ export default {
             this.isProcessing = false;
           })
           .catch((err) => {
-            console.log("There was an error");
+            console.log("There was an error, is the backend running?");
             this.isProcessing = false;
           });
       }
@@ -188,6 +188,7 @@ export default {
     async postData(url, data) {
       const response = await fetch(url, {
         method: "POST",
+        mode: "cors",
         headers: {
           "Content-Type": "application/json",
         },
