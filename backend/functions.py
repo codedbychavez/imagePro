@@ -11,7 +11,6 @@ BASE_DIR = Path(__file__).resolve().parent
 def my_function():
     return "Result from my function"
 
-
 def crop_image_to_bounding_box(file_path_to_image, image_file_name):
     result = {}
 
