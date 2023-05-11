@@ -2,19 +2,23 @@
   <div class="options-form-container">
     <h2 class="form-title">Define options</h2>
     <div class="input-group">
-          <label class="input-label" for="api-endpoint"
-            >Enter resolution API Endpoint</label
-          >
-          <input
-            class="api-endpoint-input"
-            id="resolution-min-width"
-            type="text"
-            placeholder="http://127.0.0.1:5000/api/process-images"
-            v-model="APIEndpoint"
-          />
-          <p class="helper-text">Default: http://127.0.0.1:5000/api/process-images</p>
-        </div>
-
+      <label class="input-label" for="api-endpoint"
+        >Enter processor API Endpoint</label
+      >
+      <input
+        class="api-endpoint-input"
+        id="resolution-min-width"
+        type="text"
+        :placeholder="APIEndpoint"
+        @keyup="handleSetAPIEndpoint($event)"
+      />
+      <p class="helper-text">Default: {{ APIEndpoint }}</p>
+      <p class="helper-text mt-2 underline text-blue-500">
+        <a href="https://github.com/codedbychavez/imagepro" target="_blank"
+          >How to launch backend?</a
+        >
+      </p>
+    </div>
 
     <form @submit.prevent="handleFormSubmit($event)" class="options-form">
       <div class="form-flex-container">
@@ -26,7 +30,7 @@
             id="resolution-min-width"
             type="number"
             placeholder="Resolution min width"
-            v-model="resolution_min_width"
+            v-model="formData.resolution_min_width"
           />
           <p class="helper-text">Default: 1000px</p>
         </div>
@@ -38,7 +42,7 @@
             id="resolution-min-width"
             type="number"
             placeholder="Resolution min height"
-            v-model="resolution_min_height"
+            v-model="formData.resolution_min_height"
           />
           <p class="helper-text">Default: 1000px</p>
         </div>
@@ -49,7 +53,7 @@
           <input
             id="square-images"
             type="checkbox"
-            v-model="square_images"
+            v-model="formData.square_images"
           />
           <p class="helper-text">Default: No</p>
         </div>
@@ -60,7 +64,7 @@
           <input
             id="check-for-blurry-images"
             type="checkbox"
-            v-model="blur_check"
+            v-model="formData.blur_check"
           />
           <p class="helper-text">Default: Yes</p>
         </div>
@@ -71,7 +75,7 @@
           <input
             id="remove-padding"
             type="checkbox"
-            v-model="padding_remove"
+            v-model="formData.padding_remove"
           />
           <p class="helper-text">Default: No</p>
         </div>
@@ -83,7 +87,7 @@
             id="add-padding"
             type="number"
             placeholder="10"
-            v-model="padding_add"
+            v-model="formData.padding_add"
           />
           <p class="helper-text">Default: 10px</p>
         </div>
@@ -93,7 +97,7 @@
           >7. Add URLs of images to process</label
         >
 
-        <div v-for="(image, index) in images" class="image-input-wrapper">
+        <div v-for="(image, index) in imageURLs" class="image-input-wrapper">
           <input
             :ref="`imageInput${index}`"
             @keyup="handleUpdateImageUrl($event, index)"
@@ -138,41 +142,77 @@ export default {
   },
   data() {
     return {
-      resolution_min_width: 1000,
-      resolution_min_height: 1000,
-      square_images: false,
-      blur_check: true,
-      blur_threshold: 100,
-      padding_remove: false,
-      padding_add: 10,
-      images: [],
+      imageURLs: [],
+      formData: {
+        resolution_min_width: 1000,
+        resolution_min_height: 1000,
+        square_images: false,
+        blur_check: true,
+        blur_threshold: 100,
+        padding_remove: false,
+        padding_add: 10,
+        images: [],
+      },
       isProcessing: false,
       formIsValid: false,
-      APIEndpoint: "http://127.0.0.1:5000/api/process-images"
+      APIEndpoint: "http://127.0.0.1:5000/api/process-images",
     };
   },
   methods: {
-    handleFormSubmit(event) {
-      if (this.images.length > 0) {
-        console.log("Valid");
+    handleSetAPIEndpoint(event) {
+      const urlRegex =
+        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+      if (urlRegex.test(event.target.value)) {
+        this.APIEndpoint = event.target.value;
       }
-      console.log("The form was submitted");
+    },
+    async handleFormSubmit(event) {
+      this.isProcessing = true;
+      if (this.formIsValid) {
+        this.formData.images = this.imageURLs;
+        const postDataResponse = await this.postData(
+          this.APIEndpoint,
+          this.formData
+        )
+          .then((response) => {
+            console.log(response);
+            this.isProcessing = false;
+          })
+          .catch((err) => {
+            console.log("There was an error");
+            this.isProcessing = false;
+          });
+      }
+    },
+
+    async postData(url, data) {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      return response.json();
     },
 
     handleAddImage() {
-      this.images.push("");
+      this.imageURLs.push("");
     },
 
     handleDeleteImage(index) {
-      this.images.splice(index, 1);
+      this.imageURLs.splice(index, 1);
+      if (this.imageURLs.length == 0) this.formIsValid = false;
     },
 
     handleUpdateImageUrl(event, index) {
       var imageUrlRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/g;
       let theElementRef = `imageInput${index}`;
       if (imageUrlRegex.test(event.target.value)) {
-        this.images[index] = event.target.value;
+        this.imageURLs[index] = event.target.value;
         this.$refs[theElementRef][0].classList.remove("input-text-error");
+        this.formIsValid = true;
       } else {
         this.$refs[theElementRef][0].classList.add("input-text-error");
         this.formIsValid = false;
@@ -180,11 +220,10 @@ export default {
     },
   },
   watch: {
-    images: {
+    imageURLs: {
       handler() {
-        console.log("hello");
-        this.images.forEach((image) => {
-          if (image != "") {
+        this.imageURLs.forEach((imageURL) => {
+          if (imageURL != "") {
             this.formIsValid = true;
           } else this.formIsValid = false;
         });
@@ -236,7 +275,8 @@ export default {
   @apply mt-2 flex;
 }
 
-.image-input, .api-endpoint-input {
+.image-input,
+.api-endpoint-input {
   @apply w-96;
 }
 
