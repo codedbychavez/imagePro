@@ -1,6 +1,21 @@
 <template>
   <div class="options-form-container">
     <h2 class="form-title">Define options</h2>
+    <div class="input-group">
+          <label class="input-label" for="api-endpoint"
+            >Enter resolution API Endpoint</label
+          >
+          <input
+            class="api-endpoint-input"
+            id="resolution-min-width"
+            type="text"
+            placeholder="http://127.0.0.1:5000/api/process-images"
+            v-model="APIEndpoint"
+          />
+          <p class="helper-text">Default: http://127.0.0.1:5000/api/process-images</p>
+        </div>
+
+
     <form @submit.prevent="handleFormSubmit($event)" class="options-form">
       <div class="form-flex-container">
         <div class="input-group">
@@ -133,6 +148,7 @@ export default {
       images: [],
       isProcessing: false,
       formIsValid: false,
+      APIEndpoint: "http://127.0.0.1:5000/api/process-images"
     };
   },
   methods: {
@@ -220,7 +236,7 @@ export default {
   @apply mt-2 flex;
 }
 
-.image-input {
+.image-input, .api-endpoint-input {
   @apply w-96;
 }
 
