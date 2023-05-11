@@ -16,7 +16,7 @@
           <p class="helper-text">Default: 1000px</p>
         </div>
         <div class="input-group">
-          <label class="input-label" for="resolution-min-width"
+          <label class="input-label" for="resolution-min-height"
             >2. Enter resolution min height (e.g. 1000)</label
           >
           <input
@@ -28,44 +28,44 @@
           <p class="helper-text">Default: 1000px</p>
         </div>
         <div class="input-group">
-          <label class="input-label" for="resolution-min-width"
+          <label class="input-label" for="square-images"
             >3. Square Images?</label
           >
           <input
-            id="resolution-min-width"
+            id="square-images"
             type="checkbox"
             v-model="square_images"
           />
           <p class="helper-text">Default: No</p>
         </div>
         <div class="input-group">
-          <label class="input-label" for="resolution-min-width"
+          <label class="input-label" for="check-for-blurry-images"
             >4. Check for blurry images?</label
           >
           <input
-            id="resolution-min-width"
+            id="check-for-blurry-images"
             type="checkbox"
             v-model="blur_check"
           />
           <p class="helper-text">Default: Yes</p>
         </div>
         <div class="input-group">
-          <label class="input-label" for="resolution-min-width"
+          <label class="input-label" for="remove-padding"
             >5. Remove padding from images?</label
           >
           <input
-            id="resolution-min-width"
+            id="remove-padding"
             type="checkbox"
             v-model="padding_remove"
           />
           <p class="helper-text">Default: No</p>
         </div>
         <div class="input-group">
-          <label class="input-label" for="resolution-min-width"
+          <label class="input-label" for="add-padding"
             >6. Padding to add in pixels (e.g. 10)</label
           >
           <input
-            id="resolution-min-width"
+            id="add-padding"
             type="number"
             placeholder="10"
             v-model="padding_add"
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="input-group">
-        <label class="input-label" for="resolution-min-width"
+        <label class="input-label" for="image-url"
           >7. Add URLs of images to process</label
         >
 
@@ -83,7 +83,7 @@
             :ref="`imageInput${index}`"
             @keyup="handleUpdateImageUrl($event, index)"
             class="image-input"
-            id="resolution-min-width"
+            id="image-url"
             type="text"
             placeholder="https://your-image-url.com/my-image.jpg"
             required
