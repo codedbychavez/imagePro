@@ -137,6 +137,7 @@
 import IconTrash from "./Icons/IconTrash.vue";
 
 export default {
+  emits: ['results'],
   components: {
     IconTrash,
   },
@@ -156,13 +157,14 @@ export default {
       isProcessing: false,
       formIsValid: false,
       APIEndpoint: "http://127.0.0.1:5000/api/process-images",
+      urlRegex:  /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/,
+      imageUrlRegex: /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/g
     };
   },
   methods: {
     handleSetAPIEndpoint(event) {
-      const urlRegex =
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-      if (urlRegex.test(event.target.value)) {
+       
+      if (this.urlRegex.test(event.target.value)) {
         this.APIEndpoint = event.target.value;
       }
     },
@@ -176,6 +178,7 @@ export default {
         )
           .then((response) => {
             console.log(response);
+            this.$emit('results', response.results);
             this.isProcessing = false;
           })
           .catch((err) => {
@@ -208,9 +211,8 @@ export default {
     },
 
     handleUpdateImageUrl(event, index) {
-      var imageUrlRegex = /(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|png)/g;
       let theElementRef = `imageInput${index}`;
-      if (imageUrlRegex.test(event.target.value)) {
+      if (this.urlRegex.test(event.target.value)) {
         this.imageURLs[index] = event.target.value;
         this.$refs[theElementRef][0].classList.remove("input-text-error");
         this.formIsValid = true;
@@ -237,7 +239,7 @@ export default {
 
 <style>
 .options-form-container {
-  @apply bg-gray-50 p-4 rounded-lg;
+  @apply p-4 rounded-lg;
 }
 
 .form-title {
@@ -278,7 +280,7 @@ export default {
 
 .image-input,
 .api-endpoint-input {
-  @apply w-96;
+  @apply w-full;
 }
 
 .add-image-button {
