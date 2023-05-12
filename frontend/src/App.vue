@@ -20,6 +20,6 @@ export default {
 <style scoped>
 
 .main-wrapper {
-  @apply w-11/12 mx-auto bg-white mt-8 rounded-lg;
+  @apply w-11/12 mx-auto mt-8 rounded-lg;
 }
 </style>
