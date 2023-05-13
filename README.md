@@ -8,7 +8,7 @@ This project is composed of two parts. The **frontend** and the **backend**. You
 
 ## Build and run the backend (The API)
 
-1. Point your terminal to the `backend` folder, create a virtual environment and activate it
+1. Point your terminal to the `backend` folder, create a virtual environment and activate it:
 
 ```sh
 python3 -m venv venv
@@ -18,13 +18,13 @@ python3 -m venv venv
 . venv/bin/activate
 ```
 
-2. Install the required packages from the `requirements.txt` file
+2. Install the required packages from the `requirements.txt` file:
 
 ```sh
 pip3 install -r requrements.txt
 ```
 
-3. Run the application
+3. Run the application:
 
 ```sh
 flask run
@@ -34,9 +34,9 @@ The app can be accessed at: <http://127.0.0.1:5000>. See [Processing images](htt
 
 ## Running the backend with Docker
 
-NOTE: The docker container **does not** include the frontend
+NOTE: The docker container **does not** include the frontend.
 
-1. Have docker installed on your PC/ Mac
+1. Have docker installed on your PC/ Mac.
 
 2. Build the docker image and run the container with:
 
@@ -135,4 +135,10 @@ Contributions are welcomed!
 
 ## Options
 
-Coming soon...
+**resolution_width_min** - The minimum resolution width you want to check for.  
+**resolution_height_min** - The minimum resolution width you want to check for.  
+**square_images** - If set to true, the beckend processor will square the image.  
+**blur_check** - If set to true, the backend processor will tell you if the image is blurry based on the blur threshold you specify.  
+**blur_threshold** - The minimum amount of blurriness you want the backend processor to check for.  
+**padding_remove** - If set to true, removes the padding from the image.  
+**padding_add** - The amount of padding you want to add to the image.  
