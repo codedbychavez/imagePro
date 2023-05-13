@@ -230,6 +230,9 @@ def download_image(src_original):
     ssl._create_default_https_context = ssl._create_unverified_context
     file_name = get_file_name(src_original)
     file_path = Path.joinpath(BASE_DIR, 'input_images/{0}'.format(file_name))
+    opener = request.build_opener()
+    opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+    request.install_opener(opener)
     request.urlretrieve(src_original, file_path)
     # Returns absolute file path of the downloaded image
     return str(file_path)
