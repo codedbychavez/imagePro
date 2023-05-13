@@ -1,14 +1,14 @@
 # imagePro
 
-# image-processor-tool
-
 This is a python api for processing and enhancing images.
 
 Let's get started.
 
-## Build and run
+This project is composed of two parts. The **frontend** and the **backend**. You can use it entirely (frontend and backend) or use its API. 
 
-1. Create a virtual environment and activate it
+## Build and run the backend (The API)
+
+1. Point your terminal to the `backend` folder, create a virtual environment and activate it
 
 ```sh
 python3 -m venv venv
@@ -32,7 +32,9 @@ flask run
 
 The app can be accessed at: <http://127.0.0.1:5000>. See [Processing images](https://github.com/coldbrewstudios/image-processor-tool#processing-images) for more details.
 
-## With docker
+## Running the backend with Docker
+
+NOTE: The docker container **does not** include the frontend
 
 1. Have docker installed on your PC/ Mac
 
@@ -44,7 +46,7 @@ docker-compose up
 
 3. The API can be accessed at: `http://127.0.0.1:5000/`
 
-## Processing images
+## Using the backend (API) to processing images
 
 Endpoint: `http://127.0.0.1:5000/api/process-images`  
 Method: `POST`  
@@ -61,7 +63,7 @@ Body:
     "padding_add": 50,
     "images": [
       "https://www.salton.co.za/wp-content/uploads/2019/08/2200W-HAIR-DRYER.jpg",
-      "https://static.wixstatic.com/media/c0fc0a_dd0c3e59b6ea4ef2b15df287884f31ec~mv2.jpg/v1/fill/w_519,h_519,al_c,q_80,usm_0.66_1.00_0.01,enc_auto/c0fc0a_dd0c3e59b6ea4ef2b15df287884f31ec~mv2.jpg"
+      "https://images.pexels.com/photos/18105/pexels-photo.jpg"
     ]
 }
 ```
@@ -103,6 +105,25 @@ Sample response:
 }
 ```
 
+## Running the frontend
+
+1. Point your terminal to the `frontend` folder.
+2. Run `npm install` to install the frontend dependencies.
+3. Start the frontend dev server with the following command:
+
+```sh
+npm run dev
+ ```
+ 
+ ![Snip20230513_2](https://github.com/codedbychavez/imagepro/assets/74829200/35895d94-c4ee-4fab-85f6-ad91b0581532)
+ 
+ 4. Define the modifications you need and input the URLs of the images that you want to process. Click the **Process Images** button and wait a few moments.
+
+The results will look like:
+
+![Snip20230513_1](https://github.com/codedbychavez/imagepro/assets/74829200/8f91b427-932f-486b-9d4a-e965630e4ca9)
+
+
 ## Contributions
 
 Contributions are welcomed!
@@ -112,7 +133,6 @@ Contributions are welcomed!
 [codedbychavez](https://github.com/codedbychavez)
 
 
-## Links to test with
+## Options
 
-- https://mustekdealernetmedia.blob.core.windows.net/itemimage/23921343-1f7d-450f-9894-ff020b3e3ed1_Full.png
-- 
+Coming soon...
