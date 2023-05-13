@@ -4,7 +4,7 @@ This is a python api for processing and enhancing images.
 
 Let's get started.
 
-This project is composed of two parts. The **frontend** and the **backend**. You can use it entirely (frontend and backend) or use its API. 
+This project is composed of two parts. The **frontend** and the **backend**. You can use it entirely (frontend and backend) or use its API.
 
 ## Build and run the backend (The API)
 
