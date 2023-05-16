@@ -115,13 +115,14 @@ Sample response:
 npm run dev
  ```
  
- ![Snip20230513_2](https://github.com/codedbychavez/imagepro/assets/74829200/35895d94-c4ee-4fab-85f6-ad91b0581532)
+![options](https://github.com/codedbychavez/imagePro/assets/74829200/abea0a72-3d8f-4047-9330-6ebb5b6ebcd8)
  
  4. Define the modifications you need and input the URLs of the images that you want to process. Click the **Process Images** button and wait a few moments.
 
 The results will look like:
 
-![Snip20230513_1](https://github.com/codedbychavez/imagepro/assets/74829200/8f91b427-932f-486b-9d4a-e965630e4ca9)
+![results](https://github.com/codedbychavez/imagePro/assets/74829200/0d750222-427d-4da8-a4f3-f0d863bb159f)
+
 
 
 ## Contributions
